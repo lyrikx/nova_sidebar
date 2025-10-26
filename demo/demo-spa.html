@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 	<head>
 		<meta charset="UTF-8" />
 		<title>Sidebar Demo - SPA</title>
@@ -45,89 +45,85 @@
 		</style>
 	</head>
 	<body>
-
 		<div class="container">
 			<div id="layout"></div>
 			<main id="content">
-				<h1>Bienvenido al Dashboard</h1>
-				<p>Selecciona una opción del menú lateral para navegar entre secciones.</p>
+				<h1>Welcome to the Dashboard</h1>
+				<p>Select an option from the sidebar to navigate between sections.</p>
 			</main>
 		</div>
 
 		<script type="module">
-            
 			import { NovaSidebar } from '../novaSidebar.js';
 
 			const main = document.querySelector('#content');
 
 			const routes = {
-
 				'/': `
-					<h1>Inicio</h1>
+					<h1>Home</h1>
 					<section class="card">
-						<p>Bienvenido al panel principal. Aquí puedes acceder a las secciones de usuarios, estadísticas y configuración.</p>
+						<p>Welcome to the main panel. Here you can access users, statistics, and settings sections.</p>
 					</section>
 					<section class="card">
-						<h3>Resumen rápido</h3>
+						<h3>Quick Summary</h3>
 						<ul>
-							<li>Usuarios activos: 234</li>
-							<li>Proyectos recientes: 8</li>
-							<li>Notificaciones sin leer: 5</li>
+							<li>Active users: 234</li>
+							<li>Recent projects: 8</li>
+							<li>Unread notifications: 5</li>
 						</ul>
 					</section>
 				`,
 
-				'/usuarios/activos': `
-					<h1>Usuarios Activos</h1>
+				'/users/active': `
+					<h1>Active Users</h1>
 					<section class="card">
-						<p>Lista de usuarios actualmente activos en la plataforma.</p>
+						<p>List of currently active users on the platform.</p>
 						<ul>
-							<li>María González</li>
-							<li>Juan Pérez</li>
-							<li>Ana López</li>
+							<li>Maria Gonzalez</li>
+							<li>Juan Perez</li>
+							<li>Ana Lopez</li>
 							<li>Pedro Castillo</li>
 						</ul>
 					</section>
 				`,
 
-				'/usuarios/suspendidos': `
-					<h1>Usuarios Suspendidos</h1>
+				'/users/suspended': `
+					<h1>Suspended Users</h1>
 					<section class="card">
-						<p>Estos usuarios están suspendidos temporalmente por políticas de uso.</p>
+						<p>These users are temporarily suspended due to policy violations.</p>
 						<ul>
 							<li>Carlos Mendoza</li>
-							<li>Elena García</li>
+							<li>Elena Garcia</li>
 						</ul>
 					</section>
 				`,
 
-				'/estadisticas': `
-					<h1>Estadísticas</h1>
+				'/statistics': `
+					<h1>Statistics</h1>
 					<section class="card">
-						<p>Aquí se muestran los indicadores de rendimiento más recientes.</p>
+						<p>Here are the latest performance indicators.</p>
 						<ul>
-							<li>Tasa de retención: 87%</li>
-							<li>Nuevos usuarios: 42</li>
-							<li>Sesiones promedio: 6.4 por día</li>
+							<li>Retention rate: 87%</li>
+							<li>New users: 42</li>
+							<li>Average sessions: 6.4 per day</li>
 						</ul>
 					</section>
 				`,
 
-				'/configuracion': `
-					<h1>Configuración</h1>
+				'/settings': `
+					<h1>Settings</h1>
 					<section class="card">
-						<p>Ajusta las preferencias del sistema, idioma, y notificaciones.</p>
+						<p>Adjust system preferences, language, and notifications.</p>
 						<button style="padding: 0.6rem 1rem; border-radius: 8px; border: none; background: #2563eb; color: #fff; cursor: pointer;">
-							Guardar cambios
+							Save changes
 						</button>
 					</section>
 				`,
 
 				'/logout': `
-					<h1>Sesión cerrada</h1>
-					<p>Gracias por usar la aplicación. Redirigiendo al inicio...</p>
+					<h1>Logged Out</h1>
+					<p>Thank you for using the application. Redirecting to home...</p>
 				`,
-
 			};
 
 			const sidebar = new NovaSidebar(
@@ -135,20 +131,20 @@
 				{
 					header: { title: 'Sidebar Demo', subtitle: 'Panel' },
 					mainItems: [
-						{ text: 'Inicio', icon: 'ri-home-line', href: '/' },
+						{ text: 'Home', icon: 'ri-home-line', href: '/' },
 						{
-							text: 'Usuarios',
+							text: 'Users',
 							icon: 'ri-user-line',
 							submenu: [
-								{ text: 'Activos', href: '/usuarios/activos' },
-								{ text: 'Suspendidos', href: '/usuarios/suspendidos' },
+								{ text: 'Active', href: '/users/active' },
+								{ text: 'Suspended', href: '/users/suspended' },
 							],
 						},
-						{ text: 'Estadísticas', icon: 'ri-bar-chart-line', href: '/estadisticas' },
+						{ text: 'Statistics', icon: 'ri-bar-chart-line', href: '/statistics' },
 					],
 					bottomItems: [
-						{ text: 'Configuración', icon: 'ri-settings-3-line', href: '/configuracion' },
-						{ text: 'Cerrar sesión', icon: 'ri-logout-box-line', href: '/logout' },
+						{ text: 'Settings', icon: 'ri-settings-3-line', href: '/settings' },
+						{ text: 'Logout', icon: 'ri-logout-box-line', href: '/logout' },
 					],
 				},
 				{ mode: 'spa' }
@@ -159,11 +155,10 @@
 			};
 
 			function navigateTo(href) {
-
-				console.log(href)
+				console.log(href);
 
 				if (!routes[href]) {
-					main.innerHTML = `<h1>404</h1><p>La ruta <strong>${href}</strong> no existe.</p>`;
+					main.innerHTML = `<h1>404</h1><p>The route <strong>${href}</strong> does not exist.</p>`;
 					return;
 				}
 
@@ -172,11 +167,9 @@
 				if (href === '/logout') {
 					setTimeout(() => navigateTo('/'), 1500);
 				}
-
 			}
 
 			navigateTo(window.location.pathname || '/');
-
 		</script>
 	</body>
 </html>

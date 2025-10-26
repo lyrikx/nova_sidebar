@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<title>Sidebar Demo - Navegación</title>
+		<title>Sidebar Demo - Navigation</title>
 		<link rel="stylesheet" href="../novaSidebar.css" />
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" />
 		<style>
@@ -45,8 +45,8 @@
 		<div class="container">
 			<div id="layout"></div>
 			<main id="content">
-				<h1>Bienvenido al Dashboard</h1>
-				<p>Selecciona una opción del menú lateral para navegar entre secciones.</p>
+				<h1>Welcome to the Dashboard</h1>
+				<p>Select an option from the sidebar to navigate between sections.</p>
 			</main>
 		</div>
 
@@ -58,20 +58,20 @@
 				{
 					header: { title: 'Sidebar Demo', subtitle: 'Panel' },
 					mainItems: [
-						{ text: 'Inicio', icon: 'ri-home-line', href: '/home.html' },
+						{ text: 'Home', icon: 'ri-home-line', href: '/home.html' },
 						{
-							text: 'Usuarios',
+							text: 'Users',
 							icon: 'ri-user-line',
 							submenu: [
-								{ text: 'Activos', href: '/usuarios/activos.html' },
-								{ text: 'Suspendidos', href: '/usuarios/suspendidos.html' },
+								{ text: 'Active', href: '/users/active.html' },
+								{ text: 'Suspended', href: '/users/suspended.html' },
 							],
 						},
-						{ text: 'Estadísticas', icon: 'ri-bar-chart-line', href: '/estadisticas.html' },
+						{ text: 'Statistics', icon: 'ri-bar-chart-line', href: '/statistics.html' },
 					],
 					bottomItems: [
-						{ text: 'Configuración', icon: 'ri-settings-3-line', href: '/configuracion.html' },
-						{ text: 'Cerrar sesión', icon: 'ri-logout-box-line', href: '/logout.html' },
+						{ text: 'Settings', icon: 'ri-settings-3-line', href: '/settings.html' },
+						{ text: 'Logout', icon: 'ri-logout-box-line', href: '/logout.html' },
 					],
 				},
 				{ mode: 'navigation' }
