@@ -1,0 +1,14 @@
+{
+	"name": "nova-sidebar",
+	"version": "1.0.0",
+	"description": "NovaSidebar is a lightweight library for creating responsive and dynamic sidebars in web applications.",
+	"main": "novaSidebar.js",
+	"directories": {
+		"doc": "docs"
+	},
+	"scripts": {},
+	"keywords": [],
+	"author": "lyrikx",
+	"license": "ISC",
+	"type": "module"
+}

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Sidebar Demo - SPA</title>
+		<link rel="stylesheet" href="../novaSidebar.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" />
+		<style>
+			* {
+				box-sizing: border-box;
+			}
+			body {
+				margin: 0;
+				font-family: system-ui, sans-serif;
+				background: #fafafa;
+				color: #1f2937;
+			}
+			.container {
+				display: flex;
+				align-items: flex-start;
+				justify-content: flex-start;
+			}
+			main {
+				flex: 1;
+				padding: 2rem;
+				min-height: 100vh;
+			}
+			main.fade-out {
+				opacity: 0;
+			}
+			h1 {
+				font-size: 1.8rem;
+				margin-bottom: 1rem;
+			}
+			p {
+				line-height: 1.6;
+			}
+			section.card {
+				background: #fff;
+				padding: 1.5rem;
+				border-radius: 12px;
+				box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+				margin-bottom: 1.5rem;
+			}
+		</style>
+	</head>
+	<body>
+
+		<div class="container">
+			<div id="layout"></div>
+			<main id="content">
+				<h1>Bienvenido al Dashboard</h1>
+				<p>Selecciona una opción del menú lateral para navegar entre secciones.</p>
+			</main>
+		</div>
+
+		<script type="module">
+            
+			import { NovaSidebar } from '../novaSidebar.js';
+
+			const main = document.querySelector('#content');
+
+			const routes = {
+
+				'/': `
+					<h1>Inicio</h1>
+					<section class="card">
+						<p>Bienvenido al panel principal. Aquí puedes acceder a las secciones de usuarios, estadísticas y configuración.</p>
+					</section>
+					<section class="card">
+						<h3>Resumen rápido</h3>
+						<ul>
+							<li>Usuarios activos: 234</li>
+							<li>Proyectos recientes: 8</li>
+							<li>Notificaciones sin leer: 5</li>
+						</ul>
+					</section>
+				`,
+
+				'/usuarios/activos': `
+					<h1>Usuarios Activos</h1>
+					<section class="card">
+						<p>Lista de usuarios actualmente activos en la plataforma.</p>
+						<ul>
+							<li>María González</li>
+							<li>Juan Pérez</li>
+							<li>Ana López</li>
+							<li>Pedro Castillo</li>
+						</ul>
+					</section>
+				`,
+
+				'/usuarios/suspendidos': `
+					<h1>Usuarios Suspendidos</h1>
+					<section class="card">
+						<p>Estos usuarios están suspendidos temporalmente por políticas de uso.</p>
+						<ul>
+							<li>Carlos Mendoza</li>
+							<li>Elena García</li>
+						</ul>
+					</section>
+				`,
+
+				'/estadisticas': `
+					<h1>Estadísticas</h1>
+					<section class="card">
+						<p>Aquí se muestran los indicadores de rendimiento más recientes.</p>
+						<ul>
+							<li>Tasa de retención: 87%</li>
+							<li>Nuevos usuarios: 42</li>
+							<li>Sesiones promedio: 6.4 por día</li>
+						</ul>
+					</section>
+				`,
+
+				'/configuracion': `
+					<h1>Configuración</h1>
+					<section class="card">
+						<p>Ajusta las preferencias del sistema, idioma, y notificaciones.</p>
+						<button style="padding: 0.6rem 1rem; border-radius: 8px; border: none; background: #2563eb; color: #fff; cursor: pointer;">
+							Guardar cambios
+						</button>
+					</section>
+				`,
+
+				'/logout': `
+					<h1>Sesión cerrada</h1>
+					<p>Gracias por usar la aplicación. Redirigiendo al inicio...</p>
+				`,
+
+			};
+
+			const sidebar = new NovaSidebar(
+				'#layout',
+				{
+					header: { title: 'Sidebar Demo', subtitle: 'Panel' },
+					mainItems: [
+						{ text: 'Inicio', icon: 'ri-home-line', href: '/' },
+						{
+							text: 'Usuarios',
+							icon: 'ri-user-line',
+							submenu: [
+								{ text: 'Activos', href: '/usuarios/activos' },
+								{ text: 'Suspendidos', href: '/usuarios/suspendidos' },
+							],
+						},
+						{ text: 'Estadísticas', icon: 'ri-bar-chart-line', href: '/estadisticas' },
+					],
+					bottomItems: [
+						{ text: 'Configuración', icon: 'ri-settings-3-line', href: '/configuracion' },
+						{ text: 'Cerrar sesión', icon: 'ri-logout-box-line', href: '/logout' },
+					],
+				},
+				{ mode: 'spa' }
+			);
+
+			sidebar.onNavigate = (href) => {
+				navigateTo(href);
+			};
+
+			function navigateTo(href) {
+
+				console.log(href)
+
+				if (!routes[href]) {
+					main.innerHTML = `<h1>404</h1><p>La ruta <strong>${href}</strong> no existe.</p>`;
+					return;
+				}
+
+				main.innerHTML = routes[href];
+
+				if (href === '/logout') {
+					setTimeout(() => navigateTo('/'), 1500);
+				}
+
+			}
+
+			navigateTo(window.location.pathname || '/');
+
+		</script>
+	</body>
+</html>
